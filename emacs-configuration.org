@@ -23,11 +23,6 @@ Note that once you start using emacs with this configuration, there may be many 
 ** Setup repository in org file
    Here, we will setup package repository. These package repository will help us install various packages including ~use-package~. We will use ~use-package~ to install other packages. Create a file called ~emacs-configuration.org~ inside .emacs.d (or where your init.el is located). You can mix code and normal text in this file. Any time I specify to add code, please include that part of the code inside ~#+BEGIN_SRC emacs-lisp and #+END_SRC block~ E.g.,
 
-#+begin_example
-#+ BEGIN_SRC
- <code goes here>
-#+ END_SRC
-#+end_example>
 
 Note ~emacs-lisp~ in above block. This tells the code inside ~#+BEGIN_SRC and #+END_SRC~ is emacs-lisp code. Since we asked init.el to load this file, it will execute above block of code. If you start emacs, you will notice a file called ~emacs-configuration.el~ is created, which contains all the lisp blocks included in our ~emacs-configuration.org~ file. You can have as many emacs-lisp SRC block as you need. This kind of setup helps you mix code with powerful org-mode documentation.
 
@@ -65,11 +60,6 @@ You can either use ~M-x load-file~ command to load init.el or select the section
 
 *** Emacs Configuration   
     First let us tell this configuration file, where our EMACS configuration is located and what our init file is called. This way we could use a short-cut key (key-binding) to load init.el without having to type ~load-file~ command. Add following code to initialize EMACS_DIR and USER_INIT_FILE variables
-
-#+begin_src emacs-lisp
- (setq EMACS_DIR "~/Desktop/java_emacs/")
- (setq USER_INIT_FILE (concat EMACS_DIR "init.el"))
- #+end_src  
 
 Go ahead and evaluate above code. To see if the variables were set properly you can use ~print~ command like below and evaluate the to see the result.
  ~(print EMACS_DIR)~
@@ -121,6 +111,10 @@ This will load mac.el, linux.el or windows.el depending upon your operating syst
 ;; Disable annoying ring-bell when backspace key is pressed in certain situations
 (setq ring-bell-function 'ignore)
 
+;; Disable scrollbar and toolbar
+(scroll-bar-mode -1)
+(tool-bar-mode -1)
+
 ;; Set language environment to UTF-8
 (set-language-environment "UTF-8")
 (set-default-coding-systems 'utf-8)
@@ -153,7 +147,10 @@ This will load mac.el, linux.el or windows.el depending upon your operating syst
 ;; Coding specific setting
 
 ;; Automatically add ending brackets and braces
-(electric-pair-mode 1)      
+(electric-pair-mode 1)
+
+;; Make sure tab-width is 4 and not 8
+(setq-default tab-width 4)
 
 ;; Highlight matching brackets and braces
 (show-paren-mode 1) 
@@ -164,7 +161,7 @@ If you are fine with how emacs looks then this section is optional for you. You 
 
 Note: Use this document instead of other for rest of the part.
 ** Theme
-   I tend to like doom-themes. Below we will install doom theme. In addition, I will also install another package called heaven-and-hello. This allows us to toggle between two themes using a shortcut key. I will assign "<f6>" key to toggling the theme and "C-c <f6>" to set to default theme. Load following code into your emacs configuration.
+   I tend to like doom-themes. Below we will install doom theme. In addition, I will also install another package called heaven-and-hell. This allows us to toggle between two themes using a shortcut key. I will assign "<f6>" key to toggling the theme and "C-c <f6>" to set to default theme. Load following code into your emacs configuration.
 
 #+BEGIN_SRC emacs-lisp
 (use-package doom-themes
@@ -173,6 +170,7 @@ Note: Use this document instead of other for rest of the part.
 (load-theme 'doom-palenight t))
 
 (use-package heaven-and-hell
+  :ensure t
   :init
   (setq heaven-and-hell-theme-type 'dark)
   (setq heaven-and-hell-themes
@@ -190,9 +188,23 @@ If you press F6 key in your keyboard, it should switch between doom-palenight an
 Fonts are integral part of a text editor / IDE. I tend to like "DejaVu Sans Mono" fonts. If you have not setup this "DejaVu Sans Mono" in your Operating System, it is time to do so now. Go ahead and install it [[https://dejavu-fonts.github.io/Download.html][from this link]]. After that add following configuration.
 
 #+BEGIN_SRC emacs-lisp
-(add-to-list 'default-frame-alist '(font . "DejaVu Sans Mono-12"))
+(add-to-list 'default-frame-alist '(font . "DejaVu Sans Mono-16"))
 #+END_SRC
 
+** Disable ansi color in compilaiton mode
+   This will help eliminate weird escape sequences during compilation of projects.
+   #+begin_src emacs-lisp
+
+   (defun my/ansi-colorize-buffer ()
+   (let ((buffer-read-only nil))
+   (ansi-color-apply-on-region (point-min) (point-max))))
+   
+   (use-package ansi-color
+   :ensure t
+   :config
+   (add-hook 'compilation-filter-hook 'my/ansi-colorize-buffer)
+   )
+   #+end_src
 * Required Custom Packages
   In this section we will install some of the required packages which we will use throught the rest of the configuration. 
 
@@ -436,11 +448,15 @@ One thing you might have noticed with LSP options is, it shows the prefix keys, 
 :init (setq 
     lsp-keymap-prefix "C-c l"
     lsp-enable-file-watchers nil
-    gc-cons-threshold 100000000      ; 100 mb
     read-process-output-max (* 1024 1024)  ; 1 mb
     lsp-completion-provider :capf
     lsp-idle-delay 0.500
-))
+)
+:config 
+    (setq lsp-intelephense-multi-root nil) ; don't scan unnecessary projects
+    (with-eval-after-load 'lsp-intelephense
+    (setf (lsp--client-multi-root (gethash 'iph lsp-clients)) nil))
+)
 #+end_src
 
 Once you evaluate above code, you can use "C-c l s r"  to restart the server again. After restarting if you use "C-c l" which-key (menu options) should show proper headings like in the figure below. Also, I have added some memory management settings as suggested in [[https://emacs-lsp.github.io/lsp-mode/page/performance/][this guide]]. Change them to higher numbers, if you find lsp-mode sluggish over time.
@@ -450,10 +466,16 @@ TODO: [LSP which key]
 
  See more here in [[https://github.com/emacs-lsp/lsp-java][lsp-java git page]]. 
 
-LSP-Mode package installs couple of other packages like company, yasnippet, dap-mode, treemacs, lsp-ui, lsp-java, helm-lsp etc. If you want to configure behavior of individual packages you can configure them using use-package, just like you installed them. Let's go through couple of them and see what they bring to the table.
+TODO: FIXME
+*LSP-Mode package installs couple of other packages like company, yasnippet, dap-mode, treemacs, lsp-ui, lsp-java, helm-lsp etc. If you want to configure behavior of individual packages you can configure them using use-package, just like you installed them. Let's go through couple of them and see what they bring to the table.*
 
 *** Company
-Complete anything aka Company provides provides text autocompletion. You can toggle autocomplete by enabling and disabling company-mode in your current buffer. As you type your text, it should provide any autocomplete, if it is available. Company-capf is enabled by default when you start lsp server on a project. You can also invoke ~M-x company-capf~ to enable capf (completion at point function), as some snippets might not expand properly without calling ~M-x company-capf~.
+Complete anything aka Company provides provides text autocompletion. Install company package using following command.
+#+begin_src emacs-lisp
+(use-package company :ensure t)
+#+end_src
+
+You can toggle autocomplete by enabling and disabling company-mode in your current buffer. As you type your text, it should provide any autocomplete, if it is available. Company-capf is enabled by default when you start lsp server on a project. You can also invoke ~M-x company-capf~ to enable capf (completion at point function), as some snippets might not expand properly without calling ~M-x company-capf~.
 
 TODO: [LSP company capf]
 
@@ -465,6 +487,7 @@ TODO: [LSP company yasnippet].
 If you like one of these functionalities, you can also add a keyboard-binding to invoke one of the above commands. I would like to add yas-global-minor mode as an option. Go ahead and add following code to enable that.
 #+begin_src emacs-lisp
 (use-package yasnippet :config (yas-global-mode))
+(use-package yasnippet-snippets :ensure t)
 #+end_src
 
 With this you can see magic happen. If you have gone through various options of ~company-yasnippet~ you can see the abbreviations associated with your favorite functions. E.g In java ~pr~ is associated with ~System.out.println~. With above code all you have to do is type the keyword and press ~TAB~. E.g ~pr <TAB>~ extands to ~System.out.println("text"). The cursor moves to "text" part, where you can type the text you need. If you don't want to type literal text, just press backspace couple of times, and it should let you use invoke methods from your object.
@@ -494,7 +517,7 @@ Once you start dap-debug you should see a screen just like this.
 
 You can use the buttons at the top to step-in, step-out, step-over your code or disconnect the session. Let's add some keyboard shortcut and integrate it with a package called dap-hydra, so that we can use use simple keys like n, p etc.
 
-#+begin_src 
+#+begin_src emacs-lisp
 (use-package dap-mode
   :ensure t
   :after (lsp-mode)
@@ -513,7 +536,10 @@ TODO: [13. Dap hydra]
 
 Hydra package as a standalone package is a superb emacs package. You can use it to add keys to customize so many options. E.g. I use it to control EMMS (Music), manage multiple windows, jump to my favorite websites with shortcut keys and when I am lazy, use vim like keys to navigate around in emacs. You can check [[https://github.com/neppramod/emacs-configuration/blob/master/configuration.org#hydra-1][Hydra section]] in my emacs configuration.
 
-
+*** Dap Java
+#+begin_src emacs-lisp
+(use-package dap-java :ensure nil)	
+#+end_src
 
 *** Helm LSP
 Helm-lsp package is part of lsp-mode installation. It provides various useful functions for coding. One such function is ~helm-lsp-code-actions~ ~C-c l a a~. It provides various helper functions like organizing imports, generating getters, setters, constructor, toString etc. You can use ~helm-lsp-workspace-symbol~ to find various symbols (classes) within your workspace. Since lsp has downloaded source code for java into its workspace, you will not only be able to see your own classes in the workspace but search various standard java classes with this and quickly jump to it. You can also use ~helm-lsp-global-workspace-symbol~. 
@@ -538,6 +564,28 @@ However, since we want to make sure helm-lsp starts after lsp-mode, execute foll
 
 Now when you type ~C-c l g a~ it should invoke ~helm-lsp-workspace-symbol~ function instead.
 
+*** FlyCheck
+FlyCheck checks for errors in code at runtime.
+#+begin_src emacs-lisp
+(use-package flycheck :ensure t :init (global-flycheck-mode))
+#+end_src
+
+*** Treemacs
+Treemacs provides UI elements used for LSP UI. Let's install lsp-treemacs and its dependency treemacs. We will also Assign "M-9" to show error list
+#+begin_src emacs-lisp
+(use-package lsp-treemacs
+  :after (lsp-mode treemacs)
+  :ensure t
+  :commands lsp-treemacs-errors-list
+  :bind (:map lsp-mode-map
+         ("M-9" . lsp-treemacs-errors-list)))
+
+(use-package treemacs
+  :ensure t
+  :commands (treemacs)
+  :after (lsp-mode))
+#+end_src
+
 *** LSP UI
 Other dependent package of lsp-mode are ui packages. We already saw several UI elements e.g. in dap-mode which is provided by these packages. If you want to see code navigation and symbol in a ui, you can enable these methods. E.g ~lsp-ui-imenu~ shows a simple ui listing methods and variables in a side bar, you an quickly jump to various sections in the editor ui using the ui menu.
 
@@ -557,7 +605,20 @@ Let's improve these by remapping xref-find-definitions and xref-find-references 
 :bind (:map lsp-ui-mode-map
          ([remap xref-find-definitions] . lsp-ui-peek-find-definitions)
          ([remap xref-find-references] . lsp-ui-peek-find-references))
-)
+:init (setq lsp-ui-doc-delay 1.5
+      lsp-ui-doc-position 'bottom
+	  lsp-ui-doc-max-width 100
+))
+#+end_src
+
+Go throught this: https://github.com/emacs-lsp/lsp-ui/blob/master/lsp-ui-doc.el and see what other parameters you like.
+
+*** LSP-Java
+This package is the one that deals with the server installation and so on.
+#+begin_src  emacs-lisp
+(use-package lsp-java 
+:ensure t
+:config (add-hook 'java-mode-hook 'lsp))
 #+end_src
 
 *** Other LSP Commands.
