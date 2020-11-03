@@ -20,7 +20,7 @@
  ;; If there is more than one, they won't work right.
  '(ansi-color-names-vector
    ["#292D3E" "#ff5370" "#c3e88d" "#ffcb6b" "#82aaff" "#c792ea" "#89DDFF" "#EEFFFF"])
- '(custom-enabled-themes '(doom-acario-light))
+ '(custom-enabled-themes '(doom-palenight))
  '(custom-safe-themes
    '("f2927d7d87e8207fa9a0a003c0f222d45c948845de162c885bf6ad2a255babfd" default))
  '(fci-rule-color "#676E95")
