@@ -175,7 +175,7 @@ Here, we changed the delay for the consecutive key to be little higher than defa
 )   
 #+end_src
 ** Helm
-Helm allows for easy competition of commands. Below, we will replace several of the built in functions with helm versions and add keyboard shortcuts for couple of new useful commands.
+Helm allows for easy completion of commands. Below, we will replace several of the built in functions with helm versions and add keyboard shortcuts for couple of new useful commands.
 
 #+BEGIN_SRC emacs-lisp
 (use-package helm
