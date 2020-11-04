@@ -164,7 +164,7 @@ Fonts are integral part of a text editor / IDE. I tend to like *DejaVu Sans Mono
 Here, we changed the delay for the consecutive key to be little higher than default. Adjust this to what you feel comfortable.
 
 ** Projectile
-   Projectile helps us with easy navigation within a project. Projectile recognizes several source control managed folders e.g git, mercurial, maven, sbt, and a folder with empty .projectile file. You can use ~C-c p~ to invoke any projectile command. This is a very useful key to remember.
+   Projectile helps us with easy navigation within a project. Projectile recognizes several source control managed folders e.g *git, mercurial, maven, sbt*, and a folder with empty *.projectile* file. You can use ~C-c p~ to invoke any projectile command. This is a very useful key to remember.
 
 #+begin_src emacs-lisp
 (use-package projectile 
@@ -252,7 +252,7 @@ Helm swoop allows to quickly search for text under cursor or new text within cur
 #+end_src
 
 ** Which Key
-For some prefix commands like ~C-c p~ or ~C-c h~ you want Emacs to visually guide you through the available options. Following package allows you to do that.
+For some prefix commands like ~C-c p~ or ~C-c h~ we want Emacs to visually guide you through the available options. Following package allows us to do that.
 #+begin_src emacs-lisp
 (use-package which-key 
 :ensure t 
@@ -285,7 +285,7 @@ Yasnippet is a template system for Emacs. It allows you to type abbreviation and
 (use-package yasnippet-snippets :ensure t)
 #+end_src
 
-E.g. In java mode, if you type ~pr~ and hit <TAB> it should complete to System.out.println("text");
+E.g. In java mode, if you type ~pr~ and hit ~<TAB>~ it should complete to ~System.out.println("text");~
 
 To create a new snippet you can use ~yas-new-snippet~ command. 
 
@@ -296,7 +296,7 @@ FlyCheck checks for errors in code at run-time.
 #+end_src
 
 ** Dap Mode
-Emacs Debug Adapter Protocol aka DAP Mode allows you to debug your program. Below we will integrate dap-mode with dap-hydra. Dap-hydra shows keys you can use to enable various options and jump through code at runtime. After we install dap-mode we will also install dap-java.
+Emacs Debug Adapter Protocol aka DAP Mode allows us to debug your program. Below we will integrate ~dap-mode~ with ~dap-hydra~. ~Dap-hydra~ shows keys you can use to enable various options and jump through code at runtime. After we install dap-mode we will also install ~dap-java~.
 
 #+begin_src emacs-lisp
 (use-package dap-mode
@@ -350,7 +350,7 @@ LSP UI is used in various packages that require UI elements in LSP. E.g ~lsp-ui-
 Go through this [[https://github.com/emacs-lsp/lsp-ui/blob/master/lsp-ui-doc.el][link]]  to see what other parameters are provided.
 
 ** Helm LSP
-Helm-lsp provides various functionality to work with the code. E.g Code actions like adding getter, setter, toString etc. You can use ~helm-lsp-workspace-symbol~ to find various symbols (classes) within your workspace.
+Helm-lsp provides various functionality to work with the code. E.g Code actions like adding *getter, setter, toString*, refactoring etc. You can use ~helm-lsp-workspace-symbol~ to find various symbols (classes) within your workspace.
 
 LSP's built in symbol explorer uses ~xref-find-apropos~ to provide symbol navigation. Below we will replace that with helm version. After that you can use ~C-c l g a~ to find workspace symbols in a more intuitive way.
 
@@ -363,7 +363,7 @@ LSP's built in symbol explorer uses ~xref-find-apropos~ to provide symbol naviga
 #+end_src
 
 ** Install LSP Package
-Let's install the main package for lsp. Here we will integrate lsp with which-key. So that when we type the prefix key ~C-c l~ we get additional help. 
+Let's install the main package for lsp. Here we will integrate lsp with which-key. This way, when we type the prefix key ~C-c l~ we get additional help for compliting the command. 
 
 #+begin_src emacs-lisp
 (use-package lsp-mode
@@ -389,7 +389,7 @@ Let's install the main package for lsp. Here we will integrate lsp with which-ke
 You can start LSP server in a java project by using ~C-c l s s~. Once you type ~C-c l~ ~which-key~ package should guide you through rest of the options. In above setting I have added some memory management settings as suggested in [[https://emacs-lsp.github.io/lsp-mode/page/performance/][this guide]]. Change them to higher numbers, if you find *lsp-mode* sluggish in your computer.
 
 ** LSP Java
-This is the package that handles the server sessions and installation.
+This is the package that handles server installation and session management.
 #+begin_src  emacs-lisp
 (use-package lsp-java 
 :ensure t
