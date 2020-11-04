@@ -37,7 +37,7 @@ In some operating systems Emacs does not load environment variables properly. Th
  #+end_src
 
 ** Operating System specific variable setup
-   Since we want to use same emacs configuration for each of our operating systems, we want to separate values that different between different operating systems. In my setup I have different values for JAVA_HOME in my linux.el and mac.el. Adjust these values accordingly for your setup in you are using different versions of Java. Following code loads mac.el, linux.el or windows.el based on where you run this configuration.
+   Since we want to use same emacs configuration for each of our operating systems, we want to separate values that are different between different operating systems. In my setup, I have different values for ~JAVA_HOME~ in my linux.el and mac.el. Adjust these values accordingly for your setup if you are using different versions of Java. Following code loads mac.el, linux.el or windows.el based on where you run this configuration.
 
 #+BEGIN_SRC emacs-lisp
  ;; Load platform specific variables using specific files. E.g linux.el. 
@@ -49,7 +49,7 @@ In some operating systems Emacs does not load environment variables properly. Th
  #+END_SRC
 
 ** Basic setup
-Here, I add some basic emacs setup like loading the language, disabling the toolbar, setting up backup directory etc. I have added comment to each setting.
+Here, I add some basic emacs setup like loading the language, disabling the toolbar, setting up backup directory etc. I have added comments to each setting.
 
 #+BEGIN_SRC emacs-lisp
 ;; Disable annoying ring-bell when backspace key is pressed in certain situations
@@ -102,7 +102,7 @@ Here, I add some basic emacs setup like loading the language, disabling the tool
 
 * Looks
 ** Theme
-   I tend to like doom-themes package. Below we will install doom theme. In addition, I will also install a package called heaven-and-hell. This allows us to toggle between two themes using a shortcut key. I will assign "<f6>" key to toggling the theme and "C-c <f6>" to set to default theme.
+   I tend to like *doom-themes* package. Below we will install doom theme. In addition, I will also install a package called *heaven-and-hell*. This allows us to toggle between two themes using a shortcut key. I will assign ~F6~ key to toggling the theme and ~C-c F6~ to set to default theme.
 
 #+BEGIN_SRC emacs-lisp
 (use-package doom-themes
@@ -123,7 +123,7 @@ Here, I add some basic emacs setup like loading the language, disabling the tool
 
 #+END_SRC
 
-If you press F6 key in your keyboard, it should switch between doom-palenight and doom-acario-light themes. If you want to go back to the default theme press "Ctrl + C and F6".
+If you press F6 key in your keyboard, it should switch between doom-palenight and doom-acario-light themes. If you want to go back to the default theme press ~Ctrl + C and F6~.
 
 ** Font
 Fonts are integral part of a text editor / IDE. I tend to like "DejaVu Sans Mono" fonts. If you have not setup this "DejaVu Sans Mono" in your Operating System, it is time to do so now. Go ahead and install it [[https://dejavu-fonts.github.io/Download.html][from this link]]. After that add following configuration.
