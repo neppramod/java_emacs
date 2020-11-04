@@ -373,7 +373,7 @@ Let's install the main package for lsp. Here we will integrate lsp with which-ke
    (java-mode . #'lsp-deferred)
 )
 :init (setq 
-    lsp-keymap-prefix "C-c l"
+    lsp-keymap-prefix "C-c l"              ; this is for which-key integration documentation, need to use lsp-mode-map
     lsp-enable-file-watchers nil
     read-process-output-max (* 1024 1024)  ; 1 mb
     lsp-completion-provider :capf
@@ -383,6 +383,7 @@ Let's install the main package for lsp. Here we will integrate lsp with which-ke
     (setq lsp-intelephense-multi-root nil) ; don't scan unnecessary projects
     (with-eval-after-load 'lsp-intelephense
     (setf (lsp--client-multi-root (gethash 'iph lsp-clients)) nil))
+	(define-key lsp-mode-map (kbd "C-c l") lsp-command-map)
 )
 #+end_src
 
