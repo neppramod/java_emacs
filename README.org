@@ -1,2 +1,2 @@
 # java_emacs
-Tutorial and Configuration to setup java development for emacs
+Tutorial and Configuration to setup java development for emacs. Read [[emacs-configuration.org]] for most of the setup. File [[init.el]] loads [[emacs-configuration.org]]
