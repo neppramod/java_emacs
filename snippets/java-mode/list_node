@@ -1,0 +1,18 @@
+# -*- mode: snippet -*-
+# name: list_node
+# key: list_node
+# --
+$0
+static class ListNode {
+    int val;
+    ListNode next;
+
+    public ListNode(int v) {
+        val = v;
+  	}
+
+	@Override
+	public String toString() {
+	    return String.valueOf(val);
+	}
+}

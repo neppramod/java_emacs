@@ -1,0 +1,14 @@
+# -*- mode: snippet -*-
+# name: sol
+# key: sol
+# --
+import java.util.*;
+
+public class `(file-name-base (or (buffer-file-name)(buffer-name)))` {
+    public static void main(String[] args) {
+	    `(file-name-base (or (buffer-file-name)(buffer-name)))` sol = new `(file-name-base (or (buffer-file-name)(buffer-name)))`();
+		
+	}
+	
+    $0
+}

@@ -122,6 +122,11 @@ Here, I add some basic emacs setup like loading the language, disabling the tool
          ("<f6>" . heaven-and-hell-toggle-theme)))
 
 #+END_SRC
+** Font
+#+begin_src emacs-lisp
+(load (concat EMACS_DIR "custom"))
+(add-to-list 'default-frame-alist '(font . "Hack 14"))
+#+end_src>
 
 If you press F6 key in your keyboard, it should switch between doom-palenight and doom-acario-light themes. If you want to go back to the default theme press ~Ctrl + C and F6~.
 
@@ -388,6 +393,15 @@ This is the package that handles server installation and session management.
 (use-package lsp-java 
 :ensure t
 :config (add-hook 'java-mode-hook 'lsp))
+#+end_src
+
+* Custom Commands
+#+begin_src emacs-lisp
+(global-set-key (kbd "M-y") 'helm-show-kill-ring)
+(global-set-key (kbd "M-s o") 'helm-occur)
+(global-set-key (kbd "M-s i") 'helm-imenu)
+(global-set-key (kbd "M-0") 'delete-window)
+(global-set-key (kbd "M-1") 'delete-other-windows)
 #+end_src
 
 * Conclusion

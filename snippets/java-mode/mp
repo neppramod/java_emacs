@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: mp
+# key: mp
+# --
+import java.util.*;
+$0

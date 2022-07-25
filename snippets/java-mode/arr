@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: arr
+# key: arr
+# --
+int[] arr = {$1};$0

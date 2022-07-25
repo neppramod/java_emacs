@@ -1,0 +1,36 @@
+# -*- mode: snippet -*-
+# name: sol
+# key: sol
+# --
+#include <bits/stdc++.h>
+
+using namespace std;
+
+const long long MOD = 1e9 + 7;
+const long long INF = INT_MAX / 10;
+
+typedef long long ll;
+typedef long double ld;
+typedef vector<int> vi;
+typedef pair<int,int> pii;
+
+
+#define F first
+#define S second
+#define PB push_back
+#define MP make_pair
+
+void solve()
+{
+    $0
+}
+
+int main() {
+    ios::sync_with_stdio(0);
+    cin.tie(0);
+
+    // int tc; cin >> tc; while (tc--) solve();
+
+    solve();
+    return 0;
+}

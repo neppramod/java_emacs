@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: nums
+# key: nums
+# --
+int[] nums = {$1};$0

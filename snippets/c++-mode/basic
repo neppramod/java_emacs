@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# name: basic
+# key: basic
+# --
+#include <bits/stdc++.h>
+
+using namespace std;
+
+$0

@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: sopl
+# key: sopl
+# --
+System.out.println($1);$0
