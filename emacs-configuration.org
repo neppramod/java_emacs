@@ -40,7 +40,7 @@ In some operating systems Emacs does not load environment variables properly. Th
    Since we want to use same emacs configuration for each of our operating systems, we want to separate values that are different between different operating systems. In my setup, I have different values for ~JAVA_HOME~ in my linux.el and mac.el. Adjust these values accordingly for your setup if you are using different versions of Java. Following code loads mac.el, linux.el or windows.el based on where you run this configuration.
 
 #+BEGIN_SRC emacs-lisp
- ;; Load platform specific variables using specific files. E.g linux.el. 
+ ;; Load platform specific variables using specific files. E.g. linux.el. 
  ;; Make necessary changes as needed
  (cond ((eq system-type 'windows-nt) (load (concat EMACS_DIR "windows")))
  ((eq system-type 'gnu/linux) (load (concat EMACS_DIR "linux")))
@@ -186,7 +186,7 @@ Helm allows for easy completion of commands. Below, we will replace several of t
 (("C-c g" . helm-grep-do-git-grep)))  ;; Search using grep in a git project
 #+END_SRC
 
-I want to point out, couple of interesting things from above setup. Just like we added ~C-c p~ as a prefix for projectile, here we added ~C-c h~ for helm. We also enabled fuzzy matching, so that your search text don't need to be very stict. Also, I added ~C-c g~ to helm-grep-do-git-grep. I can search files with specific text within a git project (make sure to commit it first).
+I want to point out, couple of interesting things from above setup. Just like we added ~C-c p~ as a prefix for projectile, here we added ~C-c h~ for helm. We also enabled fuzzy matching, so that your search text don't need to be very strict. Also, I added ~C-c g~ to helm-grep-do-git-grep. I can search files with specific text within a git project (make sure to commit it first).
 
 ** Helm Descbinds
 Helm descbinds helps to easily search for keyboard shortcuts for modes that are currently active in the project. This can be helpful to discover keyboard shortcuts to various commands. Use ~C-h b~ to bring up helm-descbinds window.
@@ -325,7 +325,7 @@ Treemacs provides UI elements used for LSP UI. Let's install lsp-treemacs and it
 #+end_src
 
 ** LSP UI
-LSP UI is used in various packages that require UI elements in LSP. E.g ~lsp-ui-flycheck-list~ opens a windows where you can see various coding errors while you code. You can use ~C-c l T~ to toggle several UI elements. We have also remapped some of the xref-find functions, so that we can easily jump around between symbols using ~M-.~, ~M-,~ and ~M-?~ keys.
+LSP UI is used in various packages that require UI elements in LSP. E.g. ~lsp-ui-flycheck-list~ opens a windows where you can see various coding errors while you code. You can use ~C-c l T~ to toggle several UI elements. We have also remapped some of the xref-find functions, so that we can easily jump around between symbols using ~M-.~, ~M-,~ and ~M-?~ keys.
 
 #+begin_src emacs-lisp
 (use-package lsp-ui
@@ -343,7 +343,7 @@ LSP UI is used in various packages that require UI elements in LSP. E.g ~lsp-ui-
 Go through this [[https://github.com/emacs-lsp/lsp-ui/blob/master/lsp-ui-doc.el][link]]  to see what other parameters are provided.
 
 ** Helm LSP
-Helm-lsp provides various functionality to work with the code. E.g Code actions like adding *getter, setter, toString*, refactoring etc. You can use ~helm-lsp-workspace-symbol~ to find various symbols (classes) within your workspace.
+Helm-lsp provides various functionality to work with the code. E.g. Code actions like adding *getter, setter, toString*, refactoring etc. You can use ~helm-lsp-workspace-symbol~ to find various symbols (classes) within your workspace.
 
 LSP's built in symbol explorer uses ~xref-find-apropos~ to provide symbol navigation. Below we will replace that with helm version. After that you can use ~C-c l g a~ to find workspace symbols in a more intuitive way.
 
@@ -356,7 +356,7 @@ LSP's built in symbol explorer uses ~xref-find-apropos~ to provide symbol naviga
 #+end_src
 
 ** Install LSP Package
-Let's install the main package for lsp. Here we will integrate lsp with which-key. This way, when we type the prefix key ~C-c l~ we get additional help for compliting the command. 
+Let's install the main package for lsp. Here we will integrate lsp with which-key. This way, when we type the prefix key ~C-c l~ we get additional help for completing the command. 
 
 #+begin_src emacs-lisp
 (use-package lsp-mode
